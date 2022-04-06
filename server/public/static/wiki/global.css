@@ -1,0 +1,167 @@
+/* * { font-family: "Segoe UI Light", "Segoe UI","Microsoft Jhenghei", "Microsoft Yahei", arial, sans-serif; } */
+
+/* * { font-family: "futura"; } */
+
+/* * { font-family: "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", "SimSun", sans-serif; } */
+
+/* * { font-family: "Segoe UI Light", "Segoe UI","Microsoft Jhenghei", "Microsoft Yahei", arial, sans-serif; } */
+
+/* * {
+    font-family: Arial,'Times New Roman','Microsoft YaHei',SimHei;  
+    font: bold 12px/0.75em Arial,'Times New Roman','Microsoft YaHei';
+} */
+
+* { 
+    font-family: "Menlo", "Monaco", "Consolas", "Century Gothic", "Courier New", "monospace";
+}
+
+.float-left { float: left!important; }
+.float-right { float: right!important; }
+.clearfix:after { content: ".";clear: both;display: block;height: 0;overflow: hidden;visibility: hidden; }
+
+.text-left { text-align: left!important; }
+.text-right { text-align: right!important; }
+.text-center { text-align: center!important; }
+
+.margin { margin: 12px; }
+.margin-top { margin-top: 12px; }
+.margin-left { margin-left: 12px; }
+.margin-right { margin-right: 12px; }
+.margin-bottom { margin-bottom: 12px; }
+
+.padding { padding: 12px; }
+.padding-top { padding-top: 12px; }
+.padding-left { padding-left: 12px; }
+.padding-right { padding-right: 12px; }
+.padding-bottom { padding-bottom: 12px; }
+
+.f12 { font-size: 12px!important; }
+.f14 { font-size: 14px!important; }
+.f16 { font-size: 16px!important; }
+.f18 { font-size: 18px!important; }
+
+.fwt { font-weight: 700!important; }
+.fit { font-style: italic!important; }
+.text-word-justify { text-align: justify;text-justify: distribute-all-lines;text-align-last: justify;-moz-text-align-last: justify;-webkit-text-align-last: justify; }
+.unselect { -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none; }
+
+.c-green { color: #139D2F; }
+.c-red { color: #E00A0A; }
+.c-grey { color: #d2d2d2; }
+.c-primary { color: #009688; }
+.c-normal { color: #1E9FFF; }
+.c-warn { color: #FFB800; }
+.c-danger { color: #FF5722; }
+
+.jg { margin: 0 2px!important; }
+
+
+/*表单重置样式*/
+.layui-form * {
+    font-size: 16px!important;
+}
+.layui-form .layui-btn {
+	font-size: 14px!important;
+}
+.layui-form-checkbox {
+    line-height: 10px;
+}
+.layui-form-checkbox span,
+.layui-form-checkbox i {
+    line-height: 30px;
+}
+.layui-form-switch {
+    min-width: 70px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 2px;
+    margin-top: 4px;
+}
+.layui-form-switch i {
+    margin-top: 4px;
+}
+.layui-form-item {
+	padding-top: 10px;
+}
+.layui-form-item.line {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #F2F2F2;
+}
+.layui-form-item .ipt-val {
+	line-height: 38px;
+}
+
+
+/*重置表格样式*/
+.layui-table,
+.layui-table-view { margin: 0; }
+.layui-table-page { background-color: #FFFFFF; }
+.layui-table-cell {
+    height: auto;
+}
+.layui-table * {
+	font-size: 16px!important;
+}
+.layui-table .layui-btn {
+    margin-top: -4px;
+	font-size: 12px!important;
+}
+
+
+/*选项卡重置样式*/
+.layui-tab li {
+    font-size: 16px!important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*页面滑块样式*/
+.nui-scroll {}
+.nui-scroll::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+/*正常情况下滑块的样式*/
+.nui-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 8px;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1);
+}
+/*鼠标悬浮在该类指向的控件上时滑块的样式*/
+.nui-scroll:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .2);
+    border-radius: 8px;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1);
+}
+/*鼠标悬浮在滑块上时滑块的样式*/
+.nui-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, .4);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1);
+}
+/*正常时候的主干部分*/
+.nui-scroll::-webkit-scrollbar-track {
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+    background-color: white;
+}
+/*鼠标悬浮在滚动条上的主干部分*/
+.nui-scroll::-webkit-scrollbar-track:hover {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
+    background-color: rgba(0, 0, 0, .01);
+}

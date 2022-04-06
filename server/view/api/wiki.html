@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Api Wiki Tools</title>
+        <link rel="Shortcut Icon" href="/static/wiki/favicon.ico" type="image/x-icon"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--[if lt IE 9]>
+            <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+            <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/static/wiki/layui/css/layui.css">
+        <link rel="stylesheet" href="/static/wiki/jsonview/jquery.jsonview.css">
+        <link rel="stylesheet" href="/static/wiki/global.css?_=1243">
+        <!-- <link rel="stylesheet" href="/static/wiki/wiki.css?_=1243"> -->
+    </head>
+    <body>
+
+        <div class="warp clearfix">
+            <!-- 侧栏 -->
+            <div class="warp-side float-left">
+                <div class="warp-side-top">
+                    <i id="shrink" class="layui-icon layui-icon-shrink-right"></i>
+                </div>
+                <div class="warp-side-body">
+                    <div class="sTabs">
+                        <div class="sTab" name="home"  data-tips="接口"><i class="layui-icon layui-icon-flag"></i></div>
+                        <div class="sTab" name="gdata" data-tips="令牌"><i class="layui-icon layui-icon-fonts-code"></i></div>
+                        <div class="sTab" name="infos" data-tips="说明"><i class="layui-icon layui-icon-about"></i></div>
+                        <div class="sTab" name=""      data-tips="清缓" bind-event-click="doCls"><i class="layui-icon layui-icon-fonts-del"></i></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 列表 -->
+            <div class="warp-left float-left">
+                <div class="warp-side-item active" name="home">
+                    <div class="warp-left-top">
+                        <input id="tListFilter" type="text" placeholder="关键词检索">
+                    </div>
+                    <div class="warp-left-body" id="tListView"></div>
+                </div>
+                <div class="warp-side-item" name="gdata">
+                    <div class="warp-left-top unselect title clearfix">令牌</div>
+                    <div class="warp-left-body nui-scroll">
+                        <table id="tokenTable" class="layui-table" lay-filter="tokenTable"></table>
+                    </div>
+                </div>
+                <div class="warp-side-item" name="infos">
+                    <div class="warp-left-top unselect title">说明</div>
+                    <div class="warp-left-body nui-scroll" id="tCodeView"></div>
+                </div>
+            </div>
+            <!-- 详情 -->
+            <div class="warp-right float-left">
+                <div class="layui-tab layui-tab-card" lay-allowClose="true" lay-filter="tab">
+                    <ul class="layui-tab-title">
+                        <!-- <li class="layui-this">演示标题</li> -->
+                    </ul>
+                    <div class="layui-tab-content">
+                        <!-- <div class="layui-tab-item layui-show">演示内容</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 滚动控制条 -->
+        <div class="scrollbar">
+            <div class="scrollbar-item"><i class="layui-icon layui-icon-top"></i></div>
+        </div>
+        
+        
+        <!-- 首页欢迎模板 -->
+        <script id="tHomeTpl" type="text/html">
+            <table id="logsTable" lay-filter="logsTable"></table>
+        </script>
+        
+        <!-- 全局返码模板 -->
+        <script id="tCodeTpl" type="text/html">
+            <table class="layui-table lay-table-static" lay-skin="row line">
+                <colgroup>
+                    <col>
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <td class="h50 bl bt">状态码</td>
+                        <td class="h50 br bt">状态描述</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{# for(var i in d){ }}
+                    <tr>
+                        <td class="h50 bl">{{ i }}</td>
+                        <td class="h50 br">{{ d[i] }}</td>
+                    </tr>
+                    {{# } }}
+                </tbody>
+                
+                <thead>
+                    <tr>
+                        <td class="h50 bl bt">快捷键</td>
+                        <td class="h50 br bt">功能描述</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="h50 bl">CLTR + Q</td>
+                        <td class="h50 br">切换侧栏</td>
+                    </tr>
+                    <tr>
+                        <td class="h50 bl">CLTR + S</td>
+                        <td class="h50 br">关键词检索</td>
+                    </tr>
+                    <tr>
+                        <td class="h50 bl">CLTR + R</td>
+                        <td class="h50 br">执行接口 | 刷新日志</td>
+                    </tr>
+                </tbody>
+            </table>
+        </script>
+        
+        <!-- 接口列表模板 -->
+        <script id="tListTpl" type="text/html">
+            {{# d.forEach( item => { }}
+        	<div class="tBox unselect" data-val="{{ item }}">{{ item }}</div>
+            {{# }) }}
+        </script>
+        
+        <!-- 接口详情模板 -->
+        <script id="aTpl" type="text/html">
+            <div class="api-info clearfix">
+                <div class="api-info-left float-left">
+                    <!-- <span class="layui-badge-rim unselect">{{ d.apiName }}</span> -->
+                    <!-- <span class="jg c-grey unselect">-</span> -->
+                    <span class="layui-badge-rim unselect" id="apiMethod_{{ d.apiPath.replace(/\./g,'') }}" data-val="{{ d.method.length == 0 ? 'POST' : d.method[0] }}">
+                        {{ d.method.length == 0 ? 'All' : d.method.join(' | ') }}
+                    </span>
+                    <span class="jg c-grey unselect">-</span>
+                    <span class="layui-badge-rim unselect tCopy">{{ d.apiPath }}</span>
+                </div>
+                <div class="api-info-right float-right">
+                    <a id="api_{{ d.apiPath.replace(/\./g,'') }}" class="btn-run" href="javascript:;">执行(ALT + R)</a>
+                </div>
+            </div>
+            <div class="margin-top">
+                <table id="apiToken_{{ d.apiPath.replace(/\./g,'') }}" lay-filter="apiToken_{{ d.apiPath.replace(/\./g,'') }}"></table>
+            </div>
+            <div class="margin-top">
+                <table id="apiParamsTable_{{ d.apiPath.replace(/\./g,'') }}" lay-filter="apiParamsTable_{{ d.apiPath.replace(/\./g,'') }}"></table>
+            </div>
+            <div class="margin-top">
+                <table class="layui-table lay-table-static" lay-skin="row line">
+                    <colgroup><col></colgroup>
+                    <thead><tr><th class="tl">响应</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td id="apiReponseBox_{{ d.apiPath.replace(/\./g,'') }}" class="apiReponseBox">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+
+        <script src="/static/wiki/layui/layui.js"></script>
+        <script src="/static/wiki/jsonview/jquery.min.js"></script>
+        <script src="/static/wiki/jsonview/jquery.jsonview.js"></script>
+        <script src="/static/wiki/lay-config.js"></script>
+        <!-- <script src="/static/wiki/wiki.js"></script> -->
+        <script type="text/javascript">
+            layui.use(['fn'], function() {
+                var fn = layui.fn;
+                fn.load.style('/static/wiki/wiki.css?_=' + new Date().getTime());
+                fn.load.script('/static/wiki/wiki.js?_=' + new Date().getTime());
+            });
+        </script>
+    </body>
+</html>
